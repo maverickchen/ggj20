@@ -19,7 +19,7 @@ public class HouseArea : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         GameObject collidedBranch = collision.gameObject;
-        if (collidedBranch.name == "Branch")
+        if (collidedBranch.GetComponent<Branch>())
         {
             Destroy(collidedBranch);
             HouseManager houseManager = GameObject.Find("HouseManager").GetComponent<HouseManager>();

@@ -48,8 +48,9 @@ public class UnderTheTree : MonoBehaviour
         float topOfTree = treeMidPosition.y + treeSize.y / 2;
 
         // branch dimensions
-        GameObject branch = GameObject.Find("Branch");
-        Vector3 branchSize = branch.GetComponent<Renderer>().bounds.size;
+
+        //GameObject branch = GameObject.Find("Branch");
+        Vector3 branchSize = Branch.GetComponent<Renderer>().bounds.size;
         float longestRadiusOfBranch = branchSize.x / 2;
 
         Vector3 midPosition = this.transform.position;
