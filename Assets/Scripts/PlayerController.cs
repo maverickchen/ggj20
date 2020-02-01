@@ -21,6 +21,11 @@ public class PlayerController : MonoBehaviour
     public Sprite beaverSprite;
     public Sprite zookeeperSprite;
     public GameObject branchPrefab;
+    public AudioSource pickupSound;
+    public AudioSource beaverWalkSound;
+    public AudioSource zookeeperWalkSound;
+
+    private AudioSource walkSound;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +39,7 @@ public class PlayerController : MonoBehaviour
             role = PLAYER_TYPE.ZOOKEEPER;
             anim.SetBool("IsBeaver", false);
             sprite.sprite = zookeeperSprite;
+            walkSound = zookeeperWalkSound;
         }
         else
         {
@@ -41,6 +47,7 @@ public class PlayerController : MonoBehaviour
             role = PLAYER_TYPE.BEAVER;
             anim.SetBool("IsBeaver", true);
             sprite.sprite = beaverSprite;
+            walkSound = beaverWalkSound;
         }
         Debug.Log("Player " + playerIndex.ToString() + " registered");
         rb = GetComponent<Rigidbody>();
@@ -79,6 +86,7 @@ public class PlayerController : MonoBehaviour
                         heldBranch.SetActive(false);
                         heldBranch.GetComponent<Branch>().SetLevel(2);
                         anim.SetBool("HasBranch", true);
+                        pickupSound.PlayOneShot(pickupSound.clip, 20f);
                         return; // if we pull it out from the beaver house, we are done
                     }
                 }
@@ -90,6 +98,7 @@ public class PlayerController : MonoBehaviour
                 heldBranch = nearestBranch;
                 nearestBranch.SetActive(false); // make the branch invisible to players
                 anim.SetBool("HasBranch", true);
+                pickupSound.PlayOneShot(pickupSound.clip, 20f);
             }
         }
     }
@@ -113,7 +122,17 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 input = Vector2.ClampMagnitude(movement, 1f);
-        anim.SetBool("IsWalking", (input.magnitude >= 0.025f));
+        bool isWalking = (input.magnitude >= 0.025f);
+        if (!anim.GetBool("IsWalking") && isWalking)
+        {
+            walkSound.Play();
+        }
+        if (anim.GetBool("IsWalking") && !isWalking)
+        {
+            walkSound.Stop();
+        }
+        anim.SetBool("IsWalking", isWalking);
+
         Vector3 moveDir = new Vector3(input.x, 0f, input.y);
         sprite.flipX = (moveDir.x < 0);
 

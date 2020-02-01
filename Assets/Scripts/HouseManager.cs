@@ -15,6 +15,8 @@ public class HouseManager : MonoBehaviour
     public Sprite House1;
     public Sprite House2;
 
+    public AudioSource woodAddedSound;
+
     SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
@@ -73,8 +75,10 @@ public class HouseManager : MonoBehaviour
     public void BranchDropped()
     {
         Debug.Log("branch dropped");
+
         branchCount += 1;
         numBranchesChanged();
+        woodAddedSound.PlayOneShot(woodAddedSound.clip, 4f);
         Debug.Log(branchCount.ToString() + " branches in house");
     }
 
