@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class TrashCanArea : MonoBehaviour
 {
+    private AudioSource audioSource;
+    public AudioClip trashcanSound;
+
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -18,10 +25,14 @@ public class TrashCanArea : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Branch")
+        GameObject collidedBranch = collision.gameObject;
+        if (collidedBranch.name == "Branch")
         {
             // remove the branch prefab
+            Destroy(collidedBranch);
+
             // play trash can sound
+            audioSource.PlayOneShot(trashcanSound, 1f);
         }
     }
 }
