@@ -50,7 +50,7 @@ public class UnderTheTree : MonoBehaviour
         // branch dimensions
         GameObject branch = GameObject.Find("Branch");
         Vector3 branchSize = branch.GetComponent<Renderer>().bounds.size;
-        float longestRadiusOfBranch = branchSize.y / 2;
+        float longestRadiusOfBranch = branchSize.x / 2;
 
         Vector3 midPosition = this.transform.position;
         Vector3 size = this.GetComponent<Renderer>().bounds.size;
@@ -72,7 +72,7 @@ public class UnderTheTree : MonoBehaviour
 
             Vector3 spawnPosition = new Vector3(randomX, topOfTree, randomZ);
 
-            Instantiate(Branch, spawnPosition, Quaternion.Euler(new Vector3(randomRotation, 0, 0)));
+            Instantiate(Branch, spawnPosition, Quaternion.Euler(new Vector3(0, 0, randomRotation)));
             i++;
         }
         spawning = false;
