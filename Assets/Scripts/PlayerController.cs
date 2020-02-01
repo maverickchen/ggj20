@@ -5,6 +5,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public enum PLAYER_TYPE
+    {
+        BEAVER = 1,
+        ZOOKEEPER = 2,
+    }
+    public PLAYER_TYPE role;
     public int playerIndex;
     Vector2 movement;
     Rigidbody rb;
@@ -16,6 +22,14 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerIndex = GameStateManager.instance.RegisterPlayer(gameObject);
+        if (playerIndex == 0)
+        {
+            role = PLAYER_TYPE.BEAVER;
+        }
+        else
+        {
+            role = PLAYER_TYPE.ZOOKEEPER;
+        }
         Debug.Log("Player " + playerIndex.ToString() + " registered");
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
@@ -28,9 +42,13 @@ public class PlayerController : MonoBehaviour
 
     public void OnToggleBranch()
     {
-        if (heldBranch != null) // player has a branch
+        if (heldBranch != null) // player has a branch, put it down
         {
-            anim.SetBool("HasBranch", true);
+            Vector3 offset = new Vector3(1f, 0f, 0f);
+            heldBranch.transform.position = transform.position + offset;
+            heldBranch.SetActive(true);
+            heldBranch = null;
+            anim.SetBool("HasBranch", false);
         }
         else // player not holding a branch, try to pick one up
         {
@@ -47,6 +65,16 @@ public class PlayerController : MonoBehaviour
 
     GameObject GetNearestBranch()
     {
+        float radius = 3f;
+        Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
+        foreach (Collider collider in colliders)
+        {
+            GameObject obj = collider.gameObject;
+            if (obj.GetComponent<Branch>())
+            {
+                return obj;
+            }
+        }
         return null;
     }
 
