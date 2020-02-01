@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     {
         if (heldBranch != null) // player has a branch, put it down
         {
-            Vector3 offset = new Vector3(0f, 0f, -2f);
+            Vector3 offset = new Vector3(0f, 2f, 0f);
             heldBranch.transform.position = transform.position + offset;
             heldBranch.SetActive(true);
             heldBranch = null;
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 input = Vector2.ClampMagnitude(movement, 1f);
-        anim.SetBool("IsWalking", (input.magnitude >= 0.05f));
+        anim.SetBool("IsWalking", (input.magnitude >= 0.025f));
         Vector3 moveDir = new Vector3(input.x, 0f, input.y);
         sprite.flipX = (moveDir.x < 0);
 
