@@ -7,8 +7,8 @@ public class Branch : MonoBehaviour
     public void PickedUp()
     {
         gameObject.SetActive(false);
-
     }
+
     // Start is called before the first frame update
     void Start()
     {
