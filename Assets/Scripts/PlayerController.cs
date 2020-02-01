@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer sprite;
     public Sprite beaverSprite;
     public Sprite zookeeperSprite;
+    public GameObject branchPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -62,6 +63,26 @@ public class PlayerController : MonoBehaviour
         }
         else // player not holding a branch, try to pick one up
         {
+            if (role == PLAYER_TYPE.ZOOKEEPER)
+            // Zookeepers can pull logs out from the beaver house
+            {
+                float radius = 2f;
+                Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
+                foreach (Collider collider in colliders)
+                {
+                    HouseArea houseArea = collider.gameObject.GetComponent<HouseArea>();
+                    
+                    if (houseArea != null)
+                    {
+                        houseArea.DestroyHouse();
+                        heldBranch = Instantiate(branchPrefab, transform.position, transform.rotation);
+                        heldBranch.SetActive(false);
+                        heldBranch.GetComponent<Branch>().SetLevel(2);
+                        anim.SetBool("HasBranch", true);
+                        return; // if we pull it out from the beaver house, we are done
+                    }
+                }
+            }
             // get the nearest branch object 
             GameObject nearestBranch = GetNearestBranch();
             if (nearestBranch != null)

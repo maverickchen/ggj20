@@ -26,7 +26,7 @@ public class TrashCanArea : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         GameObject collidedBranch = collision.gameObject;
-        if (collidedBranch.name == "Branch")
+        if (collidedBranch.GetComponent<Branch>() != null)
         {
             // remove the branch prefab
             Destroy(collidedBranch);

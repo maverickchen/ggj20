@@ -96,6 +96,8 @@ MonoBehaviour:
   heldBranch: {fileID: 0}
   beaverSprite: {fileID: 21300000, guid: a6179a13fdc9a4b488e679713bc8a1d1, type: 3}
   zookeeperSprite: {fileID: 21300000, guid: 55af98e309c3d3047918cca2912e2cb6, type: 3}
+  branchPrefab: {fileID: 6828811952780384888, guid: 213a32214bdcc0644aa9d6298944904a,
+    type: 3}
 --- !u!54 &1791148479096325026
 Rigidbody:
   m_ObjectHideFlags: 0

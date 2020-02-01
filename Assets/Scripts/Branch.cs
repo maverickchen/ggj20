@@ -28,6 +28,12 @@ public class Branch : MonoBehaviour
         spriteRenderer.sprite = sprites[level];
     }
 
+    public void SetLevel(int newLevel)
+    {
+        level = newLevel;
+        spriteRenderer.sprite = sprites[newLevel];
+    }
+
     // Update is called once per frame
     void Update()
     {
