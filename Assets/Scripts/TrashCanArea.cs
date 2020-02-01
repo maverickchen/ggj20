@@ -32,7 +32,7 @@ public class TrashCanArea : MonoBehaviour
             Destroy(collidedBranch);
 
             // play trash can sound
-            audioSource.PlayOneShot(trashcanSound, 1f);
+            audioSource.PlayOneShot(trashcanSound, 10f);
         }
     }
 }

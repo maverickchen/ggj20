@@ -11,14 +11,17 @@ public class HouseManager : MonoBehaviour
     public float house1_branches = 3f;
     public float house2_branches = 6f;
 
-    public GameObject House0;
-    public GameObject House1;
-    public GameObject House2;
+    public Sprite House0;
+    public Sprite House1;
+    public Sprite House2;
+
+    SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
         branchCount = 0f;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -29,24 +32,42 @@ public class HouseManager : MonoBehaviour
 
     void numBranchesChanged()
     {
-        // spawn appropriate houses
+        if (branchCount >= house2_branches)
+        {
+            spriteRenderer.sprite = House2;
+        }
+        else if (branchCount >= house1_branches)
+        {
+            spriteRenderer.sprite = House1;
+        }
+        else if (branchCount > house0_branches)
+        {
+            spriteRenderer.sprite = House0;
+        }
+
         if (branchCount == house0_branches)
         {
-            Instantiate(House0);
             GameStateManager.instance.ZookeeperWon();
-            Destroy(House1);
         }
-        else if (branchCount == house1_branches)
-        {
-            Instantiate(House1);
-            Destroy(House0);
-            Destroy(House2);
-        }
-        else if (branchCount == house2_branches)
-        {
-            Instantiate(House2);
-            Destroy(House1);
-        }
+
+        //// spawn appropriate houses
+        //if (branchCount == house0_branches)
+        //{
+        //    spriteRenderer.sprite = House0;
+        //    GameStateManager.instance.ZookeeperWon();
+        //    Destroy(House1);
+        //}
+        //else if (branchCount == house1_branches)
+        //{
+        //    spriteRenderer.sprite = House1;
+        //    Destroy(House0);
+        //    Destroy(House2);
+        //}
+        //else if (branchCount == house2_branches)
+        //{
+        //    Instantiate(House2);
+        //    Destroy(House1);
+        //}
     }
 
     public void BranchDropped()
@@ -54,11 +75,13 @@ public class HouseManager : MonoBehaviour
         Debug.Log("branch dropped");
         branchCount += 1;
         numBranchesChanged();
+        Debug.Log(branchCount.ToString() + " branches in house");
     }
 
     public void DestroyHouse()
     {
         branchCount -= branchesToDestroy;
         numBranchesChanged();
+        Debug.Log(branchCount.ToString() + " branches in house");
     }
 }

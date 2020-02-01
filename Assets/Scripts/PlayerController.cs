@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputValue value)
     {
         movement = value.Get<Vector2>();
-        Debug.Log(movement);
     }
 
     public void OnToggleBranch()

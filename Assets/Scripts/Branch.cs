@@ -17,7 +17,7 @@ public class Branch : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         sprites = new List<Sprite>() {
             level1Sprite,
