@@ -1037,7 +1037,7 @@ GameObject:
   - component: {fileID: 1736544291}
   - component: {fileID: 1736544293}
   - component: {fileID: 1736544292}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TrashCan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1390,7 +1390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3be205db8e914b2fad193cf3c67ae39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trashcanSound: {fileID: 0}
+  trashcanSound: {fileID: 8300000, guid: 3610de607aab445a4839e8cbe07ebb60, type: 3}
 --- !u!64 &2097689538
 MeshCollider:
   m_ObjectHideFlags: 0
