@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class GameLogic : MonoBehaviour
 {
-    GameLogic game;
+    public static GameLogic instance;
     List<GameObject> players;
 
     void Awake()
     {
         players = new List<GameObject>();
-        if (game == null)
+        if (instance == null)
         {
-            game = this;
+            instance = this;
         }
-        else if (game != this)
+        else if (instance != this)
         {
             Destroy(gameObject);
         }
