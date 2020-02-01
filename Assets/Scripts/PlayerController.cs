@@ -28,11 +28,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnToggleBranch()
     {
-        if (heldBranch != null)
+        if (heldBranch != null) // player has a branch
         {
             anim.SetBool("HasBranch", true);
         }
-        else
+        else // player not holding a branch, try to pick one up
         {
             // get the nearest branch object 
             GameObject nearestBranch = GetNearestBranch();
