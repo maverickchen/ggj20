@@ -20,7 +20,7 @@ public class HouseManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        branchCount = 0f;
+        branchCount = 3f;
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
