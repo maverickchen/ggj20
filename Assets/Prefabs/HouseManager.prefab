@@ -248,7 +248,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3772549932481259408}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cacd1d62568345cbad8181e61cabf82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  houseManager: {fileID: 3772549932151441783}
+  houseManager: {fileID: 0}
 --- !u!54 &3772549932481259410
 Rigidbody:
   m_ObjectHideFlags: 0
