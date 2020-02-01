@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public AudioSource pickupSound;
     public AudioSource beaverWalkSound;
     public AudioSource zookeeperWalkSound;
-
+    public GameObject branchIcon;
     private AudioSource walkSound;
 
     // Start is called before the first frame update
@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
             heldBranch.transform.position = transform.position + offset;
             heldBranch.SetActive(true);
             heldBranch = null;
+            branchIcon.SetActive(false);
             anim.SetBool("HasBranch", false);
         }
         else // player not holding a branch, try to pick one up
@@ -96,10 +97,16 @@ public class PlayerController : MonoBehaviour
             GameObject nearestBranch = GetNearestBranch();
             if (nearestBranch != null)
             {
+
                 heldBranch = nearestBranch;
                 nearestBranch.SetActive(false); // make the branch invisible to players
                 anim.SetBool("HasBranch", true);
                 pickupSound.PlayOneShot(pickupSound.clip, 20f);
+                if (role == PLAYER_TYPE.BEAVER)
+                {
+                    branchIcon.GetComponent<SpriteRenderer>().sprite = heldBranch.GetComponent<SpriteRenderer>().sprite;
+                    branchIcon.SetActive(true);
+                }
             }
         }
     }

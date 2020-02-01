@@ -79,7 +79,7 @@ public class HouseManager : MonoBehaviour
 
         branchCount += 1;
         numBranchesChanged();
-        woodAddedSound.PlayOneShot(woodAddedSound.clip, 4f);
+        woodAddedSound.PlayOneShot(woodAddedSound.clip, 10f);
         Debug.Log(branchCount.ToString() + " branches in house");
     }
 
