@@ -17,22 +17,32 @@ public class PlayerController : MonoBehaviour
     public float speed = 10f;
     public GameObject heldBranch; // the Branch GameObject being held by the player; null if player is emptyhanded
     Animator anim;
+    SpriteRenderer sprite;
+    public Sprite beaverSprite;
+    public Sprite zookeeperSprite;
 
     // Start is called before the first frame update
     void Start()
     {
         playerIndex = GameStateManager.instance.RegisterPlayer(gameObject);
+        anim = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
         if (playerIndex == 0)
         {
-            role = PLAYER_TYPE.BEAVER;
+            Debug.Log("Zookeeper");
+            role = PLAYER_TYPE.ZOOKEEPER;
+            anim.SetBool("IsBeaver", false);
+            sprite.sprite = zookeeperSprite;
         }
         else
         {
-            role = PLAYER_TYPE.ZOOKEEPER;
+            Debug.Log("Beaver");
+            role = PLAYER_TYPE.BEAVER;
+            anim.SetBool("IsBeaver", true);
+            sprite.sprite = beaverSprite;
         }
         Debug.Log("Player " + playerIndex.ToString() + " registered");
         rb = GetComponent<Rigidbody>();
-        anim = GetComponent<Animator>();
     }
 
     public void OnMove(InputValue value)
@@ -44,7 +54,7 @@ public class PlayerController : MonoBehaviour
     {
         if (heldBranch != null) // player has a branch, put it down
         {
-            Vector3 offset = new Vector3(1f, 0f, 0f);
+            Vector3 offset = new Vector3(0f, 0f, -2f);
             heldBranch.transform.position = transform.position + offset;
             heldBranch.SetActive(true);
             heldBranch = null;
@@ -81,7 +91,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 moveDir = new Vector3(movement.x, 0f, movement.y).normalized;
+        Vector2 input = Vector2.ClampMagnitude(movement, 1f);
+        anim.SetBool("IsWalking", (input.magnitude >= 0.05f));
+        Vector3 moveDir = new Vector3(input.x, 0f, input.y);
+        sprite.flipX = (moveDir.x < 0);
+
         rb.MovePosition(rb.position + moveDir * speed);
     }
 }
