@@ -38,13 +38,13 @@ public class GameStateManager : MonoBehaviour
 
     }
 
-    public void beaversWon()
+    public void BeaversWon()
     {
         // display "Beavers Won!" message
         Debug.Log("beavers won!");
     }
 
-    public void zookeeperWon()
+    public void ZookeeperWon()
     {
         // display message
         Debug.Log("Zookeeper won!");
