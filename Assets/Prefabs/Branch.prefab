@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6828811952780384889}
   - component: {fileID: 4129702265870984156}
   - component: {fileID: -8793602307608629416}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Branch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,3 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad511ce9e0b28d84cb42dd31867e8211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 1
+  level1Sprite: {fileID: 21300000, guid: fcf5a61e9f9b26a4f9d1bdf6269eb456, type: 3}
+  level2Sprite: {fileID: 21300000, guid: 7823dcbace994b14f842a32bf5d30926, type: 3}
+  level3Sprite: {fileID: 21300000, guid: def74abdda733d847bb3688542781e1a, type: 3}
