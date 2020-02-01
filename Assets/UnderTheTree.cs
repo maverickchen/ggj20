@@ -47,8 +47,14 @@ public class UnderTheTree : MonoBehaviour
         Vector3 treeSize = tree.GetComponent<Renderer>().bounds.size;
         float topOfTree = treeMidPosition.y + treeSize.y / 2;
 
+        // branch dimensions
+        GameObject branch = GameObject.Find("Branch");
+        Vector3 branchSize = branch.GetComponent<Renderer>().bounds.size;
+        float longestRadiusOfBranch = branchSize.y / 2;
+
         Vector3 midPosition = this.transform.position;
         Vector3 size = this.GetComponent<Renderer>().bounds.size;
+        size = new Vector3(size.x - longestRadiusOfBranch, size.y - longestRadiusOfBranch, size.z - longestRadiusOfBranch);
 
         coroutine = spawn(midPosition, size, topOfTree, numBranches);
         StartCoroutine(coroutine);
@@ -60,7 +66,6 @@ public class UnderTheTree : MonoBehaviour
         while (i < numBranches)
         {
             yield return new WaitForSeconds(initialSpawnInterval);
-            Debug.Log(i);
             float randomX = Random.Range(midPosition.x - size.x / 2, midPosition.x + size.x / 2);
             float randomZ = Random.Range(midPosition.z - size.z / 2, midPosition.z + size.z / 2);
             float randomRotation = Random.Range(0, 360);
