@@ -16,6 +16,14 @@ public class UnderTheTree : MonoBehaviour
 
     private IEnumerator coroutine;
 
+    private AudioSource audioSource;
+    public AudioClip spawnSound;
+
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -74,6 +82,8 @@ public class UnderTheTree : MonoBehaviour
             Vector3 spawnPosition = new Vector3(randomX, topOfTree, randomZ);
 
             Instantiate(Branch, spawnPosition, Quaternion.Euler(new Vector3(0, 0, randomRotation)));
+            // play branch spawning sound
+            audioSource.PlayOneShot(spawnSound, 0.5f);
             i++;
         }
         spawning = false;
