@@ -15,4 +15,13 @@ public class TrashCanArea : MonoBehaviour
     {
         
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "Branch")
+        {
+            // remove the branch prefab
+            // play trash can sound
+        }
+    }
 }
