@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public GameObject heldBranch; // the Branch GameObject being held by the player; null if player is emptyhanded
     Animator anim;
     SpriteRenderer sprite;
+
     public Sprite beaverSprite;
     public Sprite zookeeperSprite;
     public GameObject branchPrefab;

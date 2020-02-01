@@ -24,6 +24,7 @@ public class HouseManager : MonoBehaviour
     {
         branchCount = 3f;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        numBranchesChanged();
     }
 
     // Update is called once per frame
