@@ -27,24 +27,20 @@ public class HouseManager : MonoBehaviour
         
     }
 
-    void numBranchesChanged(bool branchesAdded)
+    void numBranchesChanged()
     {
+        // spawn appropriate houses
         if (branchCount == house0_branches)
         {
             Instantiate(House0);
-            Destroy(House1);
             GameStateManager.instance.ZookeeperWon();
+            Destroy(House1);
         }
         else if (branchCount == house1_branches)
         {
             Instantiate(House1);
-            if (branchesAdded)
-            {
-                Destroy(House0);
-            } else
-            {
-                Destroy(House2);
-            }
+            Destroy(House0);
+            Destroy(House2);
         }
         else if (branchCount == house2_branches)
         {
@@ -53,15 +49,16 @@ public class HouseManager : MonoBehaviour
         }
     }
 
-    void BranchDropped()
+    public void BranchDropped()
     {
+        Debug.Log("branch dropped");
         branchCount += 1;
-        numBranchesChanged(true);
+        numBranchesChanged();
     }
 
-    void DestroyHouse()
+    public void DestroyHouse()
     {
         branchCount -= branchesToDestroy;
-        numBranchesChanged(false);
+        numBranchesChanged();
     }
 }
