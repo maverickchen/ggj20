@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class HouseManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class HouseManager : MonoBehaviour
     public Sprite House0;
     public Sprite House1;
     public Sprite House2;
+
+    public TextMeshProUGUI numBranchesText;
 
     public int minBranches = 0; // when the branchCount reaches this number, the zookeeper has won.
     public int maxBranches = 10; // when branchCount surpasses this number, the beavers have won.
@@ -38,6 +41,7 @@ public class HouseManager : MonoBehaviour
 
     void numBranchesChanged()
     {
+        numBranchesText.text = "x " + branchCount.ToString();
         if (branchCount >= house2_branches)
         {
             spriteRenderer.sprite = House2;
