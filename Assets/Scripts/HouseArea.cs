@@ -53,8 +53,8 @@ public class HouseArea : MonoBehaviour
         }
     }
 
-    public void DestroyHouse()
+    public void DestroyHouse(int numToDecrBy)
     {
-        houseManager.DestroyHouse();
+        houseManager.DestroyHouse(numToDecrBy);
     }
 }

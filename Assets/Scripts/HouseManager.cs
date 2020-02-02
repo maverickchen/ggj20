@@ -41,7 +41,7 @@ public class HouseManager : MonoBehaviour
 
     void numBranchesChanged()
     {
-        numBranchesText.text = "x " + branchCount.ToString();
+        numBranchesText.text = "x " + Mathf.Clamp(branchCount, 0f, 20f).ToString();
         if (branchCount >= house2_branches)
         {
             spriteRenderer.sprite = House2;
@@ -76,9 +76,9 @@ public class HouseManager : MonoBehaviour
         Debug.Log(branchCount.ToString() + " branches in house");
     }
 
-    public void DestroyHouse()
+    public void DestroyHouse(int numBranchToDecrBy)
     {
-        branchCount -= branchesToDestroy;
+        branchCount -= numBranchToDecrBy;
         numBranchesChanged();
         Debug.Log(branchCount.ToString() + " branches in house");
     }

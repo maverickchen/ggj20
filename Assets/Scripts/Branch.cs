@@ -5,6 +5,8 @@ using UnityEngine;
 public class Branch : MonoBehaviour
 {
     public int level = 1;
+    public int antiValue = 0; // the amount this log will decrement house branch count upon being dropped into the trash can
+
     public Sprite level1Sprite;
     public Sprite level2Sprite;
     public Sprite level3Sprite;

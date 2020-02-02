@@ -2489,6 +2489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trashcanSound: {fileID: 8300000, guid: 3610de607aab445a4839e8cbe07ebb60, type: 3}
+  houseManager: {fileID: 1012016353}
 --- !u!64 &2097689538
 MeshCollider:
   m_ObjectHideFlags: 0

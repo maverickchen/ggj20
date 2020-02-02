@@ -92,10 +92,11 @@ public class PlayerController : MonoBehaviour
                     
                     if (houseArea != null)
                     {
-                        houseArea.DestroyHouse();
                         heldBranch = Instantiate(branchPrefab, transform.position, transform.rotation);
                         heldBranch.SetActive(false);
-                        heldBranch.GetComponent<Branch>().SetLevel(2);
+                        Branch branchData = heldBranch.GetComponent<Branch>();
+                        branchData.SetLevel(2);
+                        branchData.antiValue = 2;
                         anim.SetBool("HasBranch", true);
                         pickupSound.PlayOneShot(pickupSound.clip, 20f);
                         return; // if we pull it out from the beaver house, we are done

@@ -6,6 +6,7 @@ public class TrashCanArea : MonoBehaviour
 {
     private AudioSource audioSource;
     public AudioClip trashcanSound;
+    public HouseManager houseManager;
     private ArrayList collidingObjects = new ArrayList();
 
     void Awake()
@@ -38,13 +39,17 @@ public class TrashCanArea : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         GameObject collidedObject = collision.gameObject;
-        if (collidedObject.GetComponent<Branch>() != null)
+        Branch branch = collidedObject.GetComponent<Branch>();
+        if (branch != null)
         {
+            // tell the house manager how much to decrement branchCount by
+            houseManager.DestroyHouse(branch.antiValue);
             // remove the branch prefab
             Destroy(collidedObject);
 
             // play trash can sound
             audioSource.PlayOneShot(trashcanSound, 10f);
+            
         }
 
         if (collidedObject.GetComponent<PlayerController>())
