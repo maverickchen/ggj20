@@ -78,11 +78,14 @@ public class HouseManager : MonoBehaviour
         }
     }
 
-    public void BranchDropped()
+    public void BranchDropped(int level)
     {
         Debug.Log("branch dropped");
 
-        branchCount += 1;
+        if (level == 1) 
+        {
+            branchCount += 1;
+        }
         numBranchesChanged();
         woodAddedSound.PlayOneShot(woodAddedSound.clip, 10f);
         Debug.Log(branchCount.ToString() + " branches in house");
