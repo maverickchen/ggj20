@@ -50,7 +50,7 @@ public class GameStateManager : MonoBehaviour
         players.Add(player);
         player.transform.position = playerSpawnPositions[players.Count - 1];
         playerCards[players.Count - 1].SetActive(true);
-        if (players.Count == 3)
+        if (players.Count >= 3)
         {
             OnGameStart();
         }

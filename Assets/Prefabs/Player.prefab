@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 9063503022482338535}
   - component: {fileID: 3855940837682844137}
   - component: {fileID: 6665717831432521536}
+  - component: {fileID: 7676847549145480695}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -204,8 +205,11 @@ MonoBehaviour:
   zookeeperSpeed: 0.1
   zookeeperCarrySpeed: 0.05
   heldBranch: {fileID: 0}
-  beaverSprite: {fileID: 21300000, guid: a6179a13fdc9a4b488e679713bc8a1d1, type: 3}
-  zookeeperSprite: {fileID: 21300000, guid: 55af98e309c3d3047918cca2912e2cb6, type: 3}
+  playerSprites:
+  - {fileID: 21300000, guid: 55af98e309c3d3047918cca2912e2cb6, type: 3}
+  - {fileID: 21300000, guid: 29181938a7009384dabea1e2db1f6cc9, type: 3}
+  - {fileID: 21300000, guid: 3098fa43a297f2a4d8daf65dacb63797, type: 3}
+  - {fileID: 21300000, guid: 3d7096e426b093546b595479eccbcf83, type: 3}
   branchPrefab: {fileID: 6828811952780384888, guid: 213a32214bdcc0644aa9d6298944904a,
     type: 3}
   pickupSound: {fileID: 9063503022482338535}
@@ -213,7 +217,9 @@ MonoBehaviour:
   zookeeperWalkSound: {fileID: 467976051}
   beaverJoinSound: {fileID: 3855940837682844137}
   zookeeperJoinSound: {fileID: 6665717831432521536}
+  stunnedSound: {fileID: 7676847549145480695}
   branchIcon: {fileID: 6210198388218300267}
+  stunDuration: 2
 --- !u!54 &1791148479096325026
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -292,7 +298,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.0229886, y: 1.1494253}
+  m_Size: {x: 1.390625, y: 1.6015625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -778,6 +784,102 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!82 &7676847549145480695
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5862006138123185766}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 3c501d2e14e7b6048b7b3c1476a4121c, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6210198388218300267
 GameObject:
   m_ObjectHideFlags: 0
@@ -803,7 +905,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6210198388218300267}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.1, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3385400924795398045}
