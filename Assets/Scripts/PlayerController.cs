@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     Animator anim;
     SpriteRenderer sprite;
 
+    bool gameInProgress = false;
+
     public Sprite beaverSprite;
     public Sprite zookeeperSprite;
     public GameObject branchPrefab;
@@ -50,7 +52,7 @@ public class PlayerController : MonoBehaviour
             walkSound = zookeeperWalkSound;
             speed = zookeeperSpeed;
             carrySpeed = zookeeperCarrySpeed;
-            zookeeperJoinSound.Play();
+            zookeeperJoinSound.PlayOneShot(zookeeperJoinSound.clip, 3f);
         }
         else
         {
@@ -61,7 +63,7 @@ public class PlayerController : MonoBehaviour
             walkSound = beaverWalkSound;
             speed = beaverSpeed;
             carrySpeed = beaverCarrySpeed;
-            beaverJoinSound.Play();
+            beaverJoinSound.PlayOneShot(beaverJoinSound.clip, 1f);
         }
         Debug.Log("Player " + playerIndex.ToString() + " registered");
         rb = GetComponent<Rigidbody>();
@@ -71,6 +73,17 @@ public class PlayerController : MonoBehaviour
     {
         movement = value.Get<Vector2>();
     }
+
+    public void GameStarted()
+    {
+        gameInProgress = true;
+    }
+
+    public void GameEnded()
+    {
+        gameInProgress = false;
+    }
+
 
     public void OnToggleBranch()
     {
@@ -143,6 +156,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!gameInProgress) { return;  }
         Vector2 input = Vector2.ClampMagnitude(movement, 1f);
         bool isWalking = (input.magnitude >= 0.025f);
         if (!anim.GetBool("IsWalking") && isWalking)
