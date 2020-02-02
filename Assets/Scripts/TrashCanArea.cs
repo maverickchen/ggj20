@@ -9,6 +9,7 @@ public class TrashCanArea : MonoBehaviour
     public HouseManager houseManager;
     private ArrayList collidingObjects = new ArrayList();
     private GameObject blinker;
+    private TrashAnimShader shader;
 
     void Awake()
     {
@@ -18,6 +19,7 @@ public class TrashCanArea : MonoBehaviour
     void Start()
     {
         blinker = this.transform.Find("Blinker").gameObject;
+        shader = GameObject.Find("TrashCan").GetComponent<TrashAnimShader>();
     }
 
     // Update is called once per frame
@@ -41,6 +43,7 @@ public class TrashCanArea : MonoBehaviour
         Branch branch = collidedObject.GetComponent<Branch>();
         if (branch != null)
         {
+            shader.animate = true;
             // tell the house manager how much to decrement branchCount by
             houseManager.DestroyHouse(branch.antiValue);
             // remove the branch prefab

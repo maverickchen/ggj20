@@ -26,14 +26,14 @@ public class PlayerController : MonoBehaviour
 
     bool gameInProgress = false;
 
-    public Sprite beaverSprite;
-    public Sprite zookeeperSprite;
+    public List<Sprite> playerSprites;
     public GameObject branchPrefab;
     public AudioSource pickupSound;
     public AudioSource beaverWalkSound;
     public AudioSource zookeeperWalkSound;
     public AudioSource beaverJoinSound;
     public AudioSource zookeeperJoinSound;
+    public AudioSource stunnedSound;
     public GameObject branchIcon;
     private AudioSource walkSound;
     bool stunned = false;
@@ -42,19 +42,19 @@ public class PlayerController : MonoBehaviour
 
     Collider playerCollider;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         playerIndex = GameStateManager.instance.RegisterPlayer(gameObject);
         anim = GetComponent<Animator>();
+        anim.SetInteger("PlayerNum", playerIndex);
         sprite = GetComponent<SpriteRenderer>();
         playerCollider = GetComponent<Collider>();
+        sprite.sprite = playerSprites[playerIndex];
         if (playerIndex == 0)
         {
             Debug.Log("Zookeeper");
             role = PLAYER_TYPE.ZOOKEEPER;
             anim.SetBool("IsBeaver", false);
-            sprite.sprite = zookeeperSprite;
             walkSound = zookeeperWalkSound;
             speed = zookeeperSpeed;
             carrySpeed = zookeeperCarrySpeed;
@@ -65,7 +65,6 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Beaver");
             role = PLAYER_TYPE.BEAVER;
             anim.SetBool("IsBeaver", true);
-            sprite.sprite = beaverSprite;
             walkSound = beaverWalkSound;
             speed = beaverSpeed;
             carrySpeed = beaverCarrySpeed;
@@ -166,6 +165,7 @@ public class PlayerController : MonoBehaviour
         {
             if (player.role == PLAYER_TYPE.ZOOKEEPER && !stunned)
             {
+                stunnedSound.Play();
                 stunned = true;
                 lastStunnedTime = Time.time;
             }
