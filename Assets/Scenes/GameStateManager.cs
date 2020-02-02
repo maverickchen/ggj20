@@ -11,6 +11,7 @@ public class GameStateManager : MonoBehaviour
     List<GameObject> players;
     public AudioSource winSound;
     public TextMeshProUGUI StartGameNotificationText;
+    public GameObject Instructions;
     public List<GameObject> playerCards;
 
     List<Vector3> playerSpawnPositions = new List<Vector3>()
@@ -34,6 +35,16 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
+    void OnGameStart()
+    {
+        Instructions.SetActive(false);
+        StartCoroutine("NotifyAndShake");
+        foreach (GameObject playerObject in players)
+        {
+            playerObject.GetComponent<PlayerController>().GameStarted();
+        }
+    }
+
     public int RegisterPlayer(GameObject player)
     {
         players.Add(player);
@@ -41,11 +52,7 @@ public class GameStateManager : MonoBehaviour
         playerCards[players.Count - 1].SetActive(true);
         if (players.Count == 3)
         {
-            foreach (GameObject playerObject in players)
-            {
-                playerObject.GetComponent<PlayerController>().GameStarted();
-            }
-            StartCoroutine("NotifyAndShake");
+            OnGameStart();
         }
         return players.Count - 1;
     }
