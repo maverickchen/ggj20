@@ -11,15 +11,19 @@ public class HouseManager : MonoBehaviour
     public float house0_branches = 0f;
     public float house1_branches = 3f;
     public float house2_branches = 6f;
+    public float house3_branches = 9f;
+    public float house4_branches = 12f;
 
     public Sprite House0;
     public Sprite House1;
     public Sprite House2;
+    public Sprite House3;
+    public Sprite House4;
 
     public TextMeshProUGUI numBranchesText;
 
     public int minBranches = 0; // when the branchCount reaches this number, the zookeeper has won.
-    public int maxBranches = 10; // when branchCount surpasses this number, the beavers have won.
+    public int maxBranches = 15; // when branchCount surpasses this number, the beavers have won.
 
     public AudioSource woodAddedSound;
 
@@ -28,7 +32,7 @@ public class HouseManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        branchCount = 3f;
+        branchCount = 5f;
         spriteRenderer = GetComponent<SpriteRenderer>();
         numBranchesChanged();
     }
@@ -41,8 +45,16 @@ public class HouseManager : MonoBehaviour
 
     void numBranchesChanged()
     {
-        numBranchesText.text = "x " + Mathf.Clamp(branchCount, 0f, 20f).ToString();
-        if (branchCount >= house2_branches)
+        numBranchesText.text = Mathf.Clamp(branchCount, 0f, 20f).ToString() + " / " + maxBranches.ToString();
+        if (branchCount >= house4_branches)
+        {
+            spriteRenderer.sprite = House4;
+        }
+        else if (branchCount >= house3_branches)
+        {
+            spriteRenderer.sprite = House3;
+        }
+        else if (branchCount >= house2_branches)
         {
             spriteRenderer.sprite = House2;
         }
@@ -50,7 +62,7 @@ public class HouseManager : MonoBehaviour
         {
             spriteRenderer.sprite = House1;
         }
-        else if (branchCount > house0_branches)
+        else if (branchCount >= house0_branches)
         {
             spriteRenderer.sprite = House0;
         }

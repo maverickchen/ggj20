@@ -36,6 +36,11 @@ public class PlayerController : MonoBehaviour
     public AudioSource zookeeperJoinSound;
     public GameObject branchIcon;
     private AudioSource walkSound;
+    bool stunned = false;
+    public float stunDuration = 2f;
+    float lastStunnedTime = 0f;
+
+    Collider playerCollider;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +48,7 @@ public class PlayerController : MonoBehaviour
         playerIndex = GameStateManager.instance.RegisterPlayer(gameObject);
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        playerCollider = GetComponent<Collider>();
         if (playerIndex == 0)
         {
             Debug.Log("Zookeeper");
@@ -153,10 +159,35 @@ public class PlayerController : MonoBehaviour
         return null;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+        if (player != null)
+        {
+            if (player.role == PLAYER_TYPE.ZOOKEEPER && !stunned)
+            {
+                stunned = true;
+                lastStunnedTime = Time.time;
+            }
+        }
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!gameInProgress) { return;  }
+        if (!gameInProgress) { return; }
+        if (stunned)
+        {
+            if (Time.time - lastStunnedTime < stunDuration)
+            {
+                rb.MoveRotation(Quaternion.Euler(0f, Mathf.Lerp(0, 360*4, (Time.time - lastStunnedTime) / stunDuration), 0f));
+                return;
+            } else
+            {
+                stunned = false;
+                rb.MoveRotation(Quaternion.identity);
+            }
+        }
         Vector2 input = Vector2.ClampMagnitude(movement, 1f);
         bool isWalking = (input.magnitude >= 0.025f);
         if (!anim.GetBool("IsWalking") && isWalking)
