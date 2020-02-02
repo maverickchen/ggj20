@@ -4,8 +4,19 @@ using UnityEngine;
 
 public class GameStateManager : MonoBehaviour
 {
+    public GameObject beaverWonGraphic;
+    public GameObject zookeeperWonGraphic;
     public static GameStateManager instance;
     List<GameObject> players;
+    public AudioSource winSound;
+
+    List<Vector3> playerSpawnPositions = new List<Vector3>()
+    {
+        new Vector3(-3.9f, 0f, -2.7f),
+        new Vector3(-1.3f, 0f, -2.7f),
+        new Vector3(1.3f, 0f, -2.7f),
+        new Vector3(3.9f, 0f, -2.7f),
+    };
 
     void Awake()
     {
@@ -23,6 +34,14 @@ public class GameStateManager : MonoBehaviour
     public int RegisterPlayer(GameObject player)
     {
         players.Add(player);
+        player.transform.position = playerSpawnPositions[players.Count - 1];
+        if (players.Count == 3)
+        {
+            foreach (GameObject playerObject in players)
+            {
+                playerObject.GetComponent<PlayerController>().GameStarted();
+            }
+        }
         return players.Count - 1;
     }
 
@@ -38,15 +57,29 @@ public class GameStateManager : MonoBehaviour
 
     }
 
+    public void NotifyGameOver()
+    {
+        foreach (GameObject playerObject in players)
+        {
+            playerObject.GetComponent<PlayerController>().GameEnded();
+        }
+    }
+
     public void BeaversWon()
     {
         // display "Beavers Won!" message
+        beaverWonGraphic.SetActive(true);
+        winSound.Play();
         Debug.Log("beavers won!");
+        NotifyGameOver();
     }
 
     public void ZookeeperWon()
     {
         // display message
+        zookeeperWonGraphic.SetActive(true);
+        winSound.Play();
         Debug.Log("Zookeeper won!");
+        NotifyGameOver();
     }
 }

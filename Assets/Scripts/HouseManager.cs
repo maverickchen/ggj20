@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class HouseManager : MonoBehaviour
 {
@@ -11,14 +12,25 @@ public class HouseManager : MonoBehaviour
     public float house1_branches = 3f;
     public float house2_branches = 6f;
 
-    public GameObject House0;
-    public GameObject House1;
-    public GameObject House2;
+    public Sprite House0;
+    public Sprite House1;
+    public Sprite House2;
+
+    public TextMeshProUGUI numBranchesText;
+
+    public int minBranches = 0; // when the branchCount reaches this number, the zookeeper has won.
+    public int maxBranches = 10; // when branchCount surpasses this number, the beavers have won.
+
+    public AudioSource woodAddedSound;
+
+    SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
-        branchCount = 0f;
+        branchCount = 3f;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        numBranchesChanged();
     }
 
     // Update is called once per frame
@@ -29,36 +41,45 @@ public class HouseManager : MonoBehaviour
 
     void numBranchesChanged()
     {
-        // spawn appropriate houses
-        if (branchCount == house0_branches)
+        numBranchesText.text = "x " + Mathf.Clamp(branchCount, 0f, 20f).ToString();
+        if (branchCount >= house2_branches)
         {
-            Instantiate(House0);
+            spriteRenderer.sprite = House2;
+        }
+        else if (branchCount >= house1_branches)
+        {
+            spriteRenderer.sprite = House1;
+        }
+        else if (branchCount > house0_branches)
+        {
+            spriteRenderer.sprite = House0;
+        }
+
+        if (branchCount <= minBranches)
+        {
             GameStateManager.instance.ZookeeperWon();
-            Destroy(House1);
         }
-        else if (branchCount == house1_branches)
+
+        if (branchCount >= maxBranches)
         {
-            Instantiate(House1);
-            Destroy(House0);
-            Destroy(House2);
-        }
-        else if (branchCount == house2_branches)
-        {
-            Instantiate(House2);
-            Destroy(House1);
+            GameStateManager.instance.BeaversWon();
         }
     }
 
     public void BranchDropped()
     {
         Debug.Log("branch dropped");
+
         branchCount += 1;
         numBranchesChanged();
+        woodAddedSound.PlayOneShot(woodAddedSound.clip, 10f);
+        Debug.Log(branchCount.ToString() + " branches in house");
     }
 
-    public void DestroyHouse()
+    public void DestroyHouse(int numBranchToDecrBy)
     {
-        branchCount -= branchesToDestroy;
+        branchCount -= numBranchToDecrBy;
         numBranchesChanged();
+        Debug.Log(branchCount.ToString() + " branches in house");
     }
 }
