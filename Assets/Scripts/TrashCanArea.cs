@@ -8,6 +8,7 @@ public class TrashCanArea : MonoBehaviour
     public AudioClip trashcanSound;
     public HouseManager houseManager;
     private ArrayList collidingObjects = new ArrayList();
+    private GameObject blinker;
 
     void Awake()
     {
@@ -16,7 +17,7 @@ public class TrashCanArea : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        blinker = this.transform.Find("Blinker").gameObject;
     }
 
     // Update is called once per frame
@@ -26,13 +27,11 @@ public class TrashCanArea : MonoBehaviour
         {
             // keep lighting up outlines
             Debug.Log("light up outlines");
-            Color color = new Color(255f, 0f, 0f, (Mathf.Sin(Time.time) + 1) / 2 * 255f);
-            GetComponent<MeshRenderer>().enabled = true;
-            GetComponent<MeshRenderer>().material.color = color;
+            blinker.GetComponent<HouseAreaShaderControl>().stopBlink = false;
         }
         else
         {
-            GetComponent<MeshRenderer>().enabled = false;
+            blinker.GetComponent<HouseAreaShaderControl>().stopBlink = true;
         }
     }
 

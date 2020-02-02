@@ -5,11 +5,12 @@ using UnityEngine;
 public class HouseAreaShaderControl : MonoBehaviour {
 
     [SerializeField] private Material material;
-    public float blinkRate = 1f;
+    public float blinkRate = 0f;
     public Color color = Color.red;
     private float blinker = 0f;
     private float sign = 1f;
     public bool setColor = false;
+    public bool stopBlink = false;
 
     // Start is called before the first frame update
     void Start() {
@@ -31,6 +32,11 @@ public class HouseAreaShaderControl : MonoBehaviour {
         if (setColor) {
             material.SetColor("_BoarderColor", color);
             setColor = false;
+        }
+        if (stopBlink)
+        {
+            material.SetFloat("_blinker", 1);
+            stopBlink = false;
         }
 
     }
