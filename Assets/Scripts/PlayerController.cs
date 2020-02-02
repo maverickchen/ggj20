@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     public AudioSource pickupSound;
     public AudioSource beaverWalkSound;
     public AudioSource zookeeperWalkSound;
+    public AudioSource beaverJoinSound;
+    public AudioSource zookeeperJoinSound;
     public GameObject branchIcon;
     private AudioSource walkSound;
 
@@ -48,6 +50,7 @@ public class PlayerController : MonoBehaviour
             walkSound = zookeeperWalkSound;
             speed = zookeeperSpeed;
             carrySpeed = zookeeperCarrySpeed;
+            zookeeperJoinSound.Play();
         }
         else
         {
@@ -58,6 +61,7 @@ public class PlayerController : MonoBehaviour
             walkSound = beaverWalkSound;
             speed = beaverSpeed;
             carrySpeed = beaverCarrySpeed;
+            beaverJoinSound.Play();
         }
         Debug.Log("Player " + playerIndex.ToString() + " registered");
         rb = GetComponent<Rigidbody>();
