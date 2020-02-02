@@ -32,10 +32,11 @@ public class HouseArea : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         GameObject collidedObject = collision.gameObject;
-        if (collidedObject.GetComponent<Branch>())
+        Branch branch = collidedObject.GetComponent<Branch>();
+        if (branch)
         {
             Destroy(collidedObject);
-            houseManager.BranchDropped();
+            houseManager.BranchDropped(branch.level);
         }
         if (collidedObject.GetComponent<PlayerController>())
         {
