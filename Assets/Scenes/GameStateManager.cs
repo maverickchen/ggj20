@@ -8,6 +8,7 @@ public class GameStateManager : MonoBehaviour
     public GameObject zookeeperWonGraphic;
     public static GameStateManager instance;
     List<GameObject> players;
+    public AudioSource winSound;
 
     List<Vector3> playerSpawnPositions = new List<Vector3>()
     {
@@ -53,6 +54,7 @@ public class GameStateManager : MonoBehaviour
     {
         // display "Beavers Won!" message
         beaverWonGraphic.SetActive(true);
+        winSound.Play();
         Debug.Log("beavers won!");
     }
 
@@ -60,6 +62,7 @@ public class GameStateManager : MonoBehaviour
     {
         // display message
         zookeeperWonGraphic.SetActive(true);
+        winSound.Play();
         Debug.Log("Zookeeper won!");
     }
 }
