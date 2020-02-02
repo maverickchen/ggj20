@@ -7,8 +7,6 @@ public class HouseArea : MonoBehaviour
     public HouseManager houseManager;
     private ArrayList collidingObjects = new ArrayList();
 
-    private int count = 0;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +19,6 @@ public class HouseArea : MonoBehaviour
         if (collidingObjects.Count > 0)
         {
             // keep lighting up outlines
-            count++;
-            Debug.Log(count);
             Debug.Log("light up outlines");
             Color color = new Color(255f, 0f, 0f, (Mathf.Sin(Time.time) + 1) / 2 * 255f);
             GetComponent<MeshRenderer>().enabled = true;
