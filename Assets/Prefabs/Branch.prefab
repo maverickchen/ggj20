@@ -81,7 +81,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a258c490433ac0d4488c175ab07417f2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
+  antiValue: 0
   level1Sprite: {fileID: 21300000, guid: fcf5a61e9f9b26a4f9d1bdf6269eb456, type: 3}
   level2Sprite: {fileID: 21300000, guid: 7823dcbace994b14f842a32bf5d30926, type: 3}
   level3Sprite: {fileID: 21300000, guid: def74abdda733d847bb3688542781e1a, type: 3}
