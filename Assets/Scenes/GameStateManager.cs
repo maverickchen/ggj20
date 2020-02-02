@@ -9,13 +9,14 @@ public class GameStateManager : MonoBehaviour
     public static GameStateManager instance;
     List<GameObject> players;
     public AudioSource winSound;
+    public List<GameObject> playerCards;
 
     List<Vector3> playerSpawnPositions = new List<Vector3>()
     {
-        new Vector3(-3.9f, 0f, -2.7f),
-        new Vector3(-1.3f, 0f, -2.7f),
-        new Vector3(1.3f, 0f, -2.7f),
-        new Vector3(3.9f, 0f, -2.7f),
+        new Vector3(-5.2f, 0f, -2.7f),
+        new Vector3(-2.16f, 0f, -2.7f),
+        new Vector3(1.16f, 0f, -2.7f),
+        new Vector3(4.16f, 0f, -2.7f),
     };
 
     void Awake()
@@ -35,6 +36,7 @@ public class GameStateManager : MonoBehaviour
     {
         players.Add(player);
         player.transform.position = playerSpawnPositions[players.Count - 1];
+        playerCards[players.Count - 1].SetActive(true);
         if (players.Count == 3)
         {
             foreach (GameObject playerObject in players)

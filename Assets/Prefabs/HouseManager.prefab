@@ -52,6 +52,9 @@ MonoBehaviour:
   House0: {fileID: 21300000, guid: d2005cc799ecb40738f4c1ae9d3efffb, type: 3}
   House1: {fileID: 21300000, guid: 6ea6b812fc97b4c22a8176fb92ad33e2, type: 3}
   House2: {fileID: 21300000, guid: d0e79f9d9072944e9959b449dd718932, type: 3}
+  numBranchesText: {fileID: 0}
+  minBranches: 0
+  maxBranches: 10
   woodAddedSound: {fileID: 510918861}
 --- !u!212 &3772549932151441785
 SpriteRenderer:
@@ -248,7 +251,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3772549932481259408}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -305,7 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cacd1d62568345cbad8181e61cabf82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  houseManager: {fileID: 0}
+  houseManager: {fileID: 3772549932151441783}
 --- !u!54 &3772549932481259410
 Rigidbody:
   m_ObjectHideFlags: 0
