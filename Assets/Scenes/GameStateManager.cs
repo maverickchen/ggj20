@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameStateManager : MonoBehaviour
     public static GameStateManager instance;
     List<GameObject> players;
     public AudioSource winSound;
+    public TextMeshProUGUI StartGameNotificationText;
     public List<GameObject> playerCards;
 
     List<Vector3> playerSpawnPositions = new List<Vector3>()
@@ -43,8 +45,25 @@ public class GameStateManager : MonoBehaviour
             {
                 playerObject.GetComponent<PlayerController>().GameStarted();
             }
+            StartCoroutine("NotifyAndShake");
         }
         return players.Count - 1;
+    }
+
+    IEnumerator NotifyAndShake()
+    {
+        StartGameNotificationText.gameObject.SetActive(true);
+        for (int i = 0; i < 20f; i++)
+        {
+            int r = 255;
+            int g = 255;
+            int b = 255;
+            int a = Mathf.FloorToInt(255 - i*255/20);
+            StartGameNotificationText.color = new Color32((byte)r, (byte)g, (byte)b, (byte)a);
+            
+            yield return new WaitForSeconds(.1f);
+        }
+        StartGameNotificationText.gameObject.SetActive(false);
     }
 
     // Start is called before the first frame update
