@@ -15,6 +15,9 @@ public class HouseManager : MonoBehaviour
     public Sprite House1;
     public Sprite House2;
 
+    public int minBranches = 0; // when the branchCount reaches this number, the zookeeper has won.
+    public int maxBranches = 10; // when branchCount surpasses this number, the beavers have won.
+
     public AudioSource woodAddedSound;
 
     SpriteRenderer spriteRenderer;
@@ -48,29 +51,15 @@ public class HouseManager : MonoBehaviour
             spriteRenderer.sprite = House0;
         }
 
-        if (branchCount == house0_branches)
+        if (branchCount <= minBranches)
         {
             GameStateManager.instance.ZookeeperWon();
         }
 
-        //// spawn appropriate houses
-        //if (branchCount == house0_branches)
-        //{
-        //    spriteRenderer.sprite = House0;
-        //    GameStateManager.instance.ZookeeperWon();
-        //    Destroy(House1);
-        //}
-        //else if (branchCount == house1_branches)
-        //{
-        //    spriteRenderer.sprite = House1;
-        //    Destroy(House0);
-        //    Destroy(House2);
-        //}
-        //else if (branchCount == house2_branches)
-        //{
-        //    Instantiate(House2);
-        //    Destroy(House1);
-        //}
+        if (branchCount >= maxBranches)
+        {
+            GameStateManager.instance.BeaversWon();
+        }
     }
 
     public void BranchDropped()

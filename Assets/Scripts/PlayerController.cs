@@ -14,7 +14,9 @@ public class PlayerController : MonoBehaviour
     public int playerIndex;
     Vector2 movement;
     Rigidbody rb;
-    public float speed = 10f;
+    public float beaverSpeed = 10f;
+    public float zookeeperSpeed = 5f;
+    float speed;
     public GameObject heldBranch; // the Branch GameObject being held by the player; null if player is emptyhanded
     Animator anim;
     SpriteRenderer sprite;
@@ -41,6 +43,7 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("IsBeaver", false);
             sprite.sprite = zookeeperSprite;
             walkSound = zookeeperWalkSound;
+            speed = zookeeperSpeed;
         }
         else
         {
@@ -49,6 +52,7 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("IsBeaver", true);
             sprite.sprite = beaverSprite;
             walkSound = beaverWalkSound;
+            speed = beaverSpeed;
         }
         Debug.Log("Player " + playerIndex.ToString() + " registered");
         rb = GetComponent<Rigidbody>();

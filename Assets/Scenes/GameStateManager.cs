@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class GameStateManager : MonoBehaviour
 {
+    public GameObject beaverWonGraphic;
+    public GameObject zookeeperWonGraphic;
     public static GameStateManager instance;
     List<GameObject> players;
+
+    List<Vector3> playerSpawnPositions = new List<Vector3>()
+    {
+        new Vector3(-6f, 0f, 1.5f),
+        new Vector3(-3f, 0f, 1.5f),
+        new Vector3(0f, 0f, 1.5f),
+        new Vector3(3f, 0f, 1.5f),
+    };
 
     void Awake()
     {
@@ -23,6 +33,7 @@ public class GameStateManager : MonoBehaviour
     public int RegisterPlayer(GameObject player)
     {
         players.Add(player);
+        player.transform.position = playerSpawnPositions[players.Count - 1];
         return players.Count - 1;
     }
 
@@ -41,12 +52,14 @@ public class GameStateManager : MonoBehaviour
     public void BeaversWon()
     {
         // display "Beavers Won!" message
+        beaverWonGraphic.SetActive(true);
         Debug.Log("beavers won!");
     }
 
     public void ZookeeperWon()
     {
         // display message
+        zookeeperWonGraphic.SetActive(true);
         Debug.Log("Zookeeper won!");
     }
 }
