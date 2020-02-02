@@ -14,8 +14,11 @@ public class PlayerController : MonoBehaviour
     public int playerIndex;
     Vector2 movement;
     Rigidbody rb;
-    public float beaverSpeed = 10f;
-    public float zookeeperSpeed = 5f;
+    public float beaverSpeed = .3f;
+    public float beaverCarrySpeed = .1f;
+    public float zookeeperSpeed = .15f;
+    public float zookeeperCarrySpeed = .07f;
+    float carrySpeed;
     float speed;
     public GameObject heldBranch; // the Branch GameObject being held by the player; null if player is emptyhanded
     Animator anim;
@@ -44,6 +47,7 @@ public class PlayerController : MonoBehaviour
             sprite.sprite = zookeeperSprite;
             walkSound = zookeeperWalkSound;
             speed = zookeeperSpeed;
+            carrySpeed = zookeeperCarrySpeed;
         }
         else
         {
@@ -53,6 +57,7 @@ public class PlayerController : MonoBehaviour
             sprite.sprite = beaverSprite;
             walkSound = beaverWalkSound;
             speed = beaverSpeed;
+            carrySpeed = beaverCarrySpeed;
         }
         Debug.Log("Player " + playerIndex.ToString() + " registered");
         rb = GetComponent<Rigidbody>();
@@ -147,7 +152,7 @@ public class PlayerController : MonoBehaviour
 
         Vector3 moveDir = new Vector3(input.x, 0f, input.y);
         sprite.flipX = (moveDir.x < 0);
-
-        rb.MovePosition(rb.position + moveDir * speed);
+        float currSpeed = (heldBranch == null) ? speed : carrySpeed;
+        rb.MovePosition(rb.position + moveDir * currSpeed);
     }
 }

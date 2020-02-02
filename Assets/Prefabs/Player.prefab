@@ -97,7 +97,9 @@ MonoBehaviour:
   role: 0
   playerIndex: 0
   beaverSpeed: 0.2
+  beaverCarrySpeed: 0.1
   zookeeperSpeed: 0.08
+  zookeeperCarrySpeed: 0.04
   heldBranch: {fileID: 0}
   beaverSprite: {fileID: 21300000, guid: a6179a13fdc9a4b488e679713bc8a1d1, type: 3}
   zookeeperSprite: {fileID: 21300000, guid: 55af98e309c3d3047918cca2912e2cb6, type: 3}
